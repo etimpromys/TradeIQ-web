@@ -1,0 +1,89 @@
+@import "tailwindcss";
+
+:root {
+  /* Surfaces */
+  --bg: #10141a;
+  --panel: #171d26;
+  --panel-raised: #1f2733;
+  --border: #2a3341;
+  --border-soft: #212a36;
+
+  /* Text */
+  --text: #e7ecf2;
+  --text-muted: #8b96a8;
+  --text-faint: #5c6577;
+
+  /* Signal accents */
+  --buy: #3fb88f;
+  --buy-dim: #274a3f;
+  --sell: #c75450;
+  --sell-dim: #4a2b2a;
+  --amber: #e8b84a;
+  --amber-dim: #4a3d20;
+
+  --font-display: var(--font-space-grotesk);
+  --font-body: var(--font-inter);
+  --font-mono: var(--font-plex-mono);
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-panel: var(--panel);
+  --color-panel-raised: var(--panel-raised);
+  --color-border: var(--border);
+  --color-border-soft: var(--border-soft);
+  --color-text: var(--text);
+  --color-text-muted: var(--text-muted);
+  --color-text-faint: var(--text-faint);
+  --color-buy: var(--buy);
+  --color-buy-dim: var(--buy-dim);
+  --color-sell: var(--sell);
+  --color-sell-dim: var(--sell-dim);
+  --color-amber: var(--amber);
+  --color-amber-dim: var(--amber-dim);
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
+  --font-mono: var(--font-mono);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--bg);
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body), system-ui, sans-serif;
+}
+
+::selection {
+  background: var(--amber-dim);
+  color: var(--amber);
+}
+
+:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+.numeric {
+  font-family: var(--font-mono), monospace;
+  font-variant-numeric: tabular-nums;
+}
