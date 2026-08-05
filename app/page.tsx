@@ -6,11 +6,15 @@ import SignalTable from "@/components/SignalTable";
 
 export default async function Home() {
   const supabase = await createClient();
-  const { data } = await supabase
+  const { data, error } = await supabase
     .from("signals")
     .select("*")
     .order("created_at", { ascending: false })
     .limit(5);
+
+  if (error) {
+    console.error("[HOME PAGE] Supabase query failed:", error.message);
+  }
 
   const recentSignals = (data as Signal[]) ?? [];
 

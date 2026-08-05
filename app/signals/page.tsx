@@ -22,7 +22,12 @@ export default async function SignalsPage({
     query = query.eq("pair", pair);
   }
 
-  const { data } = await query;
+  const { data, error } = await query;
+
+  if (error) {
+    console.error("[SIGNALS PAGE] Supabase query failed:", error.message);
+  }
+
   const signals = (data as Signal[]) ?? [];
 
   const { data: pairRows } = await supabase
@@ -46,21 +51,31 @@ export default async function SignalsPage({
         trade hits its stop or target.
       </p>
 
-      <div className="mt-8 flex flex-wrap gap-2">
-        <FilterPill href="/signals" active={!pair} label="All pairs" />
-        {uniquePairs.map((p) => (
-          <FilterPill
-            key={p}
-            href={`/signals?pair=${encodeURIComponent(p)}`}
-            active={pair === p}
-            label={p.replace("=X", "")}
-          />
-        ))}
-      </div>
+      {error ? (
+        <div className="mt-8 rounded-lg border border-sell bg-sell-dim px-5 py-4 text-[13px] text-sell">
+          Couldn&apos;t load signal history right now ({error.message}). This
+          usually means a configuration issue, not that there&apos;s no data
+          — try refreshing shortly.
+        </div>
+      ) : (
+        <>
+          <div className="mt-8 flex flex-wrap gap-2">
+            <FilterPill href="/signals" active={!pair} label="All pairs" />
+            {uniquePairs.map((p) => (
+              <FilterPill
+                key={p}
+                href={`/signals?pair=${encodeURIComponent(p)}`}
+                active={pair === p}
+                label={p.replace("=X", "")}
+              />
+            ))}
+          </div>
 
-      <div className="mt-6">
-        <SignalTable signals={signals} />
-      </div>
+          <div className="mt-6">
+            <SignalTable signals={signals} />
+          </div>
+        </>
+      )}
     </div>
   );
 }

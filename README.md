@@ -65,11 +65,11 @@ a real data feed, not styled prose.
   "coming soon." Wire in Paystack/Flutterwave/Stripe when ready.
 - **Ads** — no ad network integrated yet. Once traffic exists, this is
   usually a single script tag (e.g. Google AdSense) dropped into `layout.tsx`.
-- **Outcome tracking automation** — the `outcome` field on each signal
-  (win/loss/pending) currently has to be updated manually or via a script
-  you'd add later that checks whether price hit the stop or target.
 - **Password reset flow** — not built; Supabase supports it, just not wired
   into the UI yet.
+
+Outcome tracking (win/loss/expired, not just "pending") is now automated —
+see `outcome_tracker.py` in the bot repo.
 
 ## File structure
 
